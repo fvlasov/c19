@@ -1,3 +1,3 @@
-module github.com/fvlasov/go-c19
+module github.com/fvlasov/c19
 
 go 1.14

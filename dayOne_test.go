@@ -65,5 +65,3 @@ func TestGetDayOne(t *testing.T) {
 		t.Errorf("returned keys %+v, expected %+v", r, sl)
 	}
 }
-
-

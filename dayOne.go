@@ -12,9 +12,9 @@ import (
 type DayOne struct {
 	Country     string    `json:"Country"`
 	CountryCode string    `json:"CountryCode"`
-	Province    string    `json:"Province"`
-	City        string    `json:"City"`
-	CityCode    string    `json:"cityCode"`
+	Province    string    `json:"Province,omitempty"`
+	City        string    `json:"City,omitempty"`
+	CityCode    string    `json:"cityCode,omitempty"`
 	Lat         string    `json:"Lat"`
 	Lon         string    `json:"Lon"`
 	Cases       int       `json:"Cases"`
