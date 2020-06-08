@@ -63,8 +63,8 @@ func GetDayOne(ctx context.Context, country string, status string) ([]DayOne, er
 //country must be the Slug from /countries or /summary. Cases must be one of: confirmed, recovered, deaths
 //For more details, see https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#d0ca988a-ac5f-4d30-ab64-b188e45149e4
 func GetDayOneAllStatus(ctx context.Context, country string) ([]DayOne, error) {
-	if !IsValidCountry(country) {
-		return nil, errCountry
+	if isAvelableStatus(status) {
+		return nil, errStatus
 	}
 
 	dayOneAllURL := fmt.Sprintf("dayone/country/%s", country)
@@ -92,12 +92,8 @@ func GetDayOneAllStatus(ctx context.Context, country string) ([]DayOne, error) {
 //this function is like GetDateOne function but with live count
 //For more details, see https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#81447902-b68a-4e79-9df9-1b371905e9fa
 func GetDayOneLive(ctx context.Context, country string, status string) ([]DayOne, error) {
-	if !isAvelableStatus(status) {
+	if isAvelableStatus(status) {
 		return nil, errStatus
-	}
-
-	if !IsValidCountry(country) {
-		return nil, errCountry
 	}
 
 	dayOneURL := fmt.Sprintf("dayone/country/%s/status/%s/live", country, status)
