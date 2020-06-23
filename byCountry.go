@@ -29,6 +29,10 @@ func (c Client) GetByCountry(ctx context.Context, country string, status string,
 		return nil, errStatus
 	}
 
+	if !IsValidCountry(country) {
+		return nil, errCountry
+	}
+
 	byCountryURL := fmt.Sprintf("/dayone/country/%s/status/%s?from=%s&to=%s", country, status, from.Format(time.RFC3339Nano), to.Format(time.RFC3339Nano))
 
 	req, err := http.NewRequestWithContext(ctx, "GET", c.BaseURL+byCountryURL, nil)
@@ -71,6 +75,10 @@ type ByCountryAllStatus struct {
 //country must be the slug from /countries or /summary. Cases must be one of: confirmed, recovered, deaths
 //For more details, see  https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#071be6ab-ebcc-40dc-be8b-9209ab7caca5
 func (c Client) GetByCountryAllStatus(ctx context.Context, country string, from time.Time, to time.Time) ([]ByCountryAllStatus, error) {
+	if !IsValidCountry(country) {
+		return nil, errCountry
+	}
+
 	byCountryURL := fmt.Sprintf("/dayone/country/%s?from=%s&to=%s", country, from.Format(time.RFC3339Nano), to.Format(time.RFC3339Nano))
 
 	req, err := http.NewRequestWithContext(ctx, "GET", c.BaseURL+byCountryURL, nil)
@@ -100,6 +108,10 @@ func (c Client) GetByCountryAllStatus(ctx context.Context, country string, from 
 func (c Client) GetByCountryLive(ctx context.Context, country string, status string, from time.Time, to time.Time) ([]ByCountry, error) {
 	if !isAvailableStatus(status) {
 		return nil, errStatus
+	}
+
+	if !IsValidCountry(country) {
+		return nil, errCountry
 	}
 
 	byCountryURL := fmt.Sprintf("/dayone/country/%s/status/%s/live?from=%s&to=%s", country, status, from.Format(time.RFC3339Nano), to.Format(time.RFC3339Nano))

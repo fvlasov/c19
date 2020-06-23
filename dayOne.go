@@ -29,6 +29,10 @@ func (c Client) GetDayOne(ctx context.Context, country string, status string) ([
 		return nil, errStatus
 	}
 
+	if !IsValidCountry(country) {
+		return nil, errCountry
+	}
+
 	dayOneURL := fmt.Sprintf("/country/%s/status/%s", country, status)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", c.BaseURL+dayOneURL, nil)
@@ -71,6 +75,10 @@ type DayOneAllStatus struct {
 //country must be the Slug from /countries or /summary. Cases must be one of: confirmed, recovered, deaths
 //For more details, see https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#d0ca988a-ac5f-4d30-ab64-b188e45149e4
 func (c Client) GetDayOneAllStatus(ctx context.Context, country string) ([]DayOneAllStatus, error) {
+	if !IsValidCountry(country) {
+		return nil, errCountry
+	}
+
 	dayOneAllURL := fmt.Sprintf("/dayone/country/%s", country)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", c.BaseURL+dayOneAllURL, nil)
@@ -99,6 +107,10 @@ func (c Client) GetDayOneAllStatus(ctx context.Context, country string) ([]DayOn
 //this function is like GetDateOne function but with live count
 //For more details, see https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#81447902-b68a-4e79-9df9-1b371905e9fa
 func (c Client) GetDayOneLive(ctx context.Context, country string, status string) ([]DayOne, error) {
+	if !IsValidCountry(country) {
+		return nil, errCountry
+	}
+
 	if !isAvailableStatus(status) {
 		return nil, errStatus
 	}
