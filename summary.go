@@ -35,7 +35,7 @@ type countries struct {
 	Date           time.Time `json:"Date"`
 }
 
-var summaryURL = "/summary"
+var summaryURL = "summary"
 
 //GetSummary returns summary of new and total cases per country.
 //For more details information see https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#00030720-fae3-4c72-8aea-ad01ba17adf8
