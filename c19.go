@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var baseURL = "https://api.covid19api.com/"
+var baseURL = "https://api.covid19api.com"
 
 type Client struct {
 	client  *http.Client
